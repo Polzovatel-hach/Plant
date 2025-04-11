@@ -3,6 +3,17 @@ const cors = require('cors');
 const path = require('path');
 const app = express();
 
+const db = require('./config/db');
+
+// Тест подключения к БД
+db.query('SELECT NOW()')
+  .then(() => console.log('✅ Подключение к PostgreSQL успешно'))
+  .catch(err => {
+    console.error('❌ Ошибка подключения к PostgreSQL:', err);
+    process.exit(1); // Завершаем процесс при ошибке
+  });
+
+
 // Basic middleware
 app.use(cors());
 app.use(express.json());
@@ -32,7 +43,7 @@ app.use((err, req, res, next) => {
 });
 
 // Start server
-const PORT = process.env.PORT || 3000;
+const PORT = process.env.PORT || 3001;
 app.listen(PORT, () => {
   console.log(`Server running on http://localhost:${PORT}`);
 });
