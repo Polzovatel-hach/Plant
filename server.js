@@ -3,17 +3,6 @@ const cors = require('cors');
 const path = require('path');
 const app = express();
 
-const db = require('./config/db');
-
-// Тест подключения к БД
-db.query('SELECT NOW()')
-  .then(() => console.log('✅ Подключение к PostgreSQL успешно'))
-  .catch(err => {
-    console.error('❌ Ошибка подключения к PostgreSQL:', err);
-    process.exit(1); // Завершаем процесс при ошибке
-  });
-
-
 // Basic middleware
 app.use(cors());
 app.use(express.json());
